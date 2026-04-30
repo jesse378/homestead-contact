@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — The Homestead Builders</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F4EF;
+    --stone: #E8E2D9;
+    --bark: #8B7355;
+    --bark-dark: #5C4A2A;
+    --forest: #2E3D2F;
+    --forest-light: #4A5E4B;
+    --charcoal: #1C1C1A;
+    --muted: #7A7468;
+    --border: #D4CCBF;
+    --white: #FFFFFF;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+    font-weight: 300;
+  }
+
+  /* Header */
+  .site-header {
+    background: var(--forest);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .logo span { color: var(--bark); }
+
+  /* Hero strip */
+  .hero {
+    background: var(--forest);
+    padding: 3rem 2rem 3.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40px;
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bark);
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--cream);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    color: rgba(247,244,239,0.65);
+    max-width: 420px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  /* Form container */
+  .form-wrap {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-title {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .row3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .field { display: flex; flex-direction: column; margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+
+  label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  input, select, textarea {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--charcoal);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 13px;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--forest-light);
+    box-shadow: 0 0 0 3px rgba(46,61,47,0.08);
+    background: var(--white);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B7355' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+  ::placeholder { color: #B0A898; }
+
+  /* Tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
+  .tag {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    padding: 5px 13px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .tag:hover { border-color: var(--bark); color: var(--bark-dark); }
+  .tag.sel { background: var(--forest); border-color: var(--forest); color: var(--cream); }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--forest);
+    color: var(--cream);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 0.5rem;
+  }
+  .submit-btn:hover { background: var(--forest-light); }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .spinner {
+    display: inline-block;
+    width: 13px; height: 13px;
+    border: 2px solid rgba(247,244,239,0.3);
+    border-top-color: var(--cream);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .status-msg { font-size: 0.82rem; color: var(--muted); margin-top: 10px; min-height: 18px; text-align: center; }
+
+  /* Results */
+  .results { display: none; margin-top: 1.25rem; }
+
+  .result-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge {
+    font-size: 0.6rem;
+    padding: 2px 8px;
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 100px;
+    letter-spacing: 0.1em;
+  }
+
+  .bt-box {
+    background: var(--charcoal);
+    color: #A8C5A0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem;
+    padding: 12px 14px;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .email-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    white-space: pre-wrap;
+    color: var(--charcoal);
+    margin-bottom: 10px;
+  }
+
+  .action-row { display: flex; gap: 8px; justify-content: flex-end; }
+  .action-btn {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 7px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--bark-dark);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .action-btn:hover { background: var(--stone); }
+
+  .divider {
+    height: 1px;
+    background: var(--stone);
+    margin: 1.5rem 0;
+  }
+
+  /* Footer */
+  .site-footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    border-top: 1px solid var(--stone);
+  }
+
+  @media (max-width: 560px) {
+    .row2, .row3 { grid-template-columns: 1fr; }
+    .hero { padding: 2.5rem 1.25rem 3rem; }
+    .card { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="#">The Homestead <span>Builders</span></a>
+</header>
+
+<div class="hero">
+  <p class="hero-eyebrow">Start your project</p>
+  <h1>Let's build something<br>worth coming home to.</h1>
+  <p>Tell us about your vision and we'll be in touch within one business day.</p>
+</div>
+
+<div class="form-wrap">
+
+  <!-- Contact Info -->
+  <div class="card">
+    <div class="card-title">Contact info</div>
+    <div class="row2">
+      <div class="field"><label>First name *</label><input id="fname" type="text" placeholder="Sarah" /></div>
+      <div class="field"><label>Last name *</label><input id="lname" type="text" placeholder="Miller" /></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Email *</label><input id="email" type="email" placeholder="sarah@email.com" /></div>
+      <div class="field"><label>Phone</label><input id="phone" type="tel" placeholder="(555) 000-0000" /></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Cell</label><input id="cell" type="tel" placeholder="(555) 000-0000" /></div>
+      <div class="field">
+        <label>How did you hear about us?</label>
+        <select id="source">
+          <option value="">Select source</option>
+          <option>Website / Contact Form</option>
+          <option>Google</option>
+          <option>Referral</option>
+          <option>Social Media</option>
+          <option>Tradeshow</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Address -->
+  <div class="card">
+    <div class="card-title">Project address <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:0.7rem;">(if known)</span></div>
+    <div class="field" style="margin-bottom:14px"><label>Street address</label><input id="street" type="text" placeholder="123 Main St" /></div>
+    <div class="row3">
+      <div class="field"><label>City</label><input id="city" type="text" placeholder="Dallas" /></div>
+      <div class="field"><label>State</label><input id="state" type="text" placeholder="TX" maxlength="2" /></div>
+      <div class="field"><label>Zip</label><input id="zip" type="text" placeholder="75201" /></div>
+    </div>
+  </div>
+
+  <!-- Project Details -->
+  <div class="card">
+    <div class="card-title">Project details</div>
+    <div class="field" style="margin-bottom:16px">
+      <label>Project type</label>
+      <div class="tags" id="proj-tags">
+        <span class="tag" onclick="toggle(this)">Custom new build</span>
+        <span class="tag" onclick="toggle(this)">Addition / expansion</span>
+        <span class="tag" onclick="toggle(this)">ADU / guest house</span>
+        <span class="tag" onclick="toggle(this)">Whole-home remodel</span>
+        <span class="tag" onclick="toggle(this)">Not sure yet</span>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Estimated budget</label>
+        <select id="budget">
+          <option value="">Select range</option>
+          <option value="0|300000">Under $300K</option>
+          <option value="300000|600000">$300K – $600K</option>
+          <option value="600000|1000000">$600K – $1M</option>
+          <option value="1000000|2000000">$1M – $2M</option>
+          <option value="2000000|5000000">$2M+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Timeline to break ground</label>
+        <select id="timeline">
+          <option value="">Select timeline</option>
+          <option>ASAP / within 3 months</option>
+          <option>3–6 months</option>
+          <option>6–12 months</option>
+          <option>1–2 years out</option>
+          <option>Just exploring</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Land status</label>
+      <div class="tags" id="land-tags">
+        <span class="tag" onclick="single(this,'land-tags')">Own the land</span>
+        <span class="tag" onclick="single(this,'land-tags')">Under contract</span>
+        <span class="tag" onclick="single(this,'land-tags')">Still looking</span>
+        <span class="tag" onclick="single(this,'land-tags')">Not applicable</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="field">
+      <label>Anything else we should know?</label>
+      <textarea id="notes" placeholder="Style preferences, site challenges, referral details..."></textarea>
+    </div>
+  </div>
+
+  <button class="submit-btn" id="submit-btn" onclick="generate()">Send my project details</button>
+  <div class="status-msg" id="status"></div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+
+    <div class="card">
+      <div class="result-label">Buildertrend import row <span class="badge">ready</span></div>
+      <div class="bt-box" id="bt-row"></div>
+      <div class="action-row">
+        <button class="action-btn" onclick="downloadCSV()">Download .csv ↓</button>
+        <button class="action-btn" onclick="copyRow()">Copy row</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="result-label">AI-drafted follow-up email</div>
+      <div class="email-box" id="email-out"></div>
+      <div class="action-row">
+        <button class="action-btn" onclick="copyEmail()">Copy to clipboard</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  © 2025 The Homestead Builders · thehomesteadbuilders.com
+</footer>
+
+<script>
+let lastEmail = '';
+let lastBT = [];
+
+function toggle(el) { el.classList.toggle('sel'); }
+function single(el, gid) {
+  document.querySelectorAll('#'+gid+' .tag').forEach(t => t.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function getSelected(gid) {
+  return [...document.querySelectorAll('#'+gid+' .tag.sel')].map(t => t.textContent).join(', ');
+}
+
+async function generate() {
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const cell = document.getElementById('cell').value.trim();
+  const source = document.getElementById('source').value;
+  const street = document.getElementById('street').value.trim();
+  const city = document.getElementById('city').value.trim();
+  const state = document.getElementById('state').value.trim();
+  const zip = document.getElementById('zip').value.trim();
+  const projType = getSelected('proj-tags');
+  const budgetEl = document.getElementById('budget');
+  const budgetLabel = budgetEl.options[budgetEl.selectedIndex].text;
+  const budgetVal = budgetEl.value;
+  const timeline = document.getElementById('timeline').value;
+  const land = getSelected('land-tags');
+  const notes = document.getElementById('notes').value.trim();
+
+  if (!fname || !email) {
+    document.getElementById('status').textContent = 'Please enter at least a first name and email.';
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Generating...';
+  document.getElementById('status').textContent = '';
+  document.getElementById('results').style.display = 'none';
+
+  const fullName = (fname + ' ' + lname).trim();
+  const [bStart, bEnd] = budgetVal ? budgetVal.split('|') : ['',''];
+
+  const notesComposed = [notes, timeline ? 'Timeline: '+timeline : '', land ? 'Land: '+land : ''].filter(Boolean).join(' | ');
+
+  lastBT = [
+    fullName, fullName, fname, lname,
+    street, city, state, zip,
+    street, city, state, zip,
+    '', '', source, phone, cell, email,
+    notesComposed, '', projType, bStart, bEnd
+  ];
+
+  document.getElementById('bt-row').textContent = lastBT.join('\t');
+
+  const prompt = `You are writing a follow-up email on behalf of The Homestead Builders (thehomesteadbuilders.com), a custom home building company in Texas. Write a warm, personal follow-up email to a new lead.
+
+Lead: ${fullName}
+Project type: ${projType || 'not specified'}
+Budget: ${budgetLabel || 'not specified'}
+Timeline: ${timeline || 'not specified'}
+Land status: ${land || 'not specified'}
+Source: ${source || 'not specified'}
+Notes: ${notes || 'none'}
+
+Write a warm, professional email under 180 words. Reference their specific situation. Suggest a 30-minute discovery call. Sign off as: [Your name], The Homestead Builders. No bullet points. Output only the email text.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content.map(b => b.text || '').join('');
+    lastEmail = text;
+    document.getElementById('email-out').textContent = text;
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(e) {
+    document.getElementById('status').textContent = 'Something went wrong — please try again.';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Send my project details';
+}
+
+function copyEmail() {
+  navigator.clipboard.writeText(lastEmail).then(() => {
+    const b = event.target; b.textContent = 'Copied!';
+    setTimeout(() => b.textContent = 'Copy to clipboard', 2000);
+  });
+}
+
+function copyRow() {
+  navigator.clipboard.writeText(lastBT.join('\t')).then(() => {
+    const b = event.target; b.textContent = 'Copied!';
+    setTimeout(() => b.textContent = 'Copy row', 2000);
+  });
+}
+
+function downloadCSV() {
+  const headers = ['Opportunity Title','Contact Display Name','Contact First Name','Contact Last Name','Street Address','City','State','Zip','Street Address (Contact)','City (Contact)','State (Contact)','Zip (Contact)','Status','Salesperson','Source','Phone','Cell','Email','General Notes','Tag','Project Type','Estimated Revenue Start','Estimated Revenue End'];
+  const esc = v => '"' + String(v).replace(/"/g,'""') + '"';
+  const csv = [headers.map(esc).join(','), lastBT.map(esc).join(',')].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+  a.download = 'buildertrend_lead.csv';
+  a.click();
+}
+</script>
+</body>
+</html>
