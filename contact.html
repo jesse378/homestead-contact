@@ -553,6 +553,13 @@ function downloadCSV() {
   a.download = 'buildertrend_lead.csv';
   a.click();
 }
+
+function sendHeight() {
+  window.parent.postMessage({ height: document.body.scrollHeight }, '*');
+}
+window.addEventListener('load', sendHeight);
+window.addEventListener('resize', sendHeight);
+new MutationObserver(sendHeight).observe(document.body, { childList: true, subtree: true });
 </script>
 </body>
 </html>
